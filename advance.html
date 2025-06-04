@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Web Features</title>
+  <style>
+    body {
+      font-family: 'Arial Rounded MT Bold', sans-serif;
+      margin: 0;
+      padding: 0;
+      background:linear-gradient(to right, #ffecd2, #fcb69f);
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background:radial-gradient(circle,rgb(172, 233, 233),rgb(242, 142, 237));
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      color: #4b6584;
+      border-bottom: 2px solid #d1d8e0;
+      padding-bottom: 0.3rem;
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    .quiz button,
+    .api-section button,
+    .carousel button {
+      padding: 0.6rem 1.2rem;
+      background-color: #3867d6;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      margin: 0.3rem 0.3rem 1rem 0;
+    }
+
+    .quiz button:hover,
+    .api-section button:hover,
+    .carousel button:hover {
+      background-color: #4b7bec;
+    }
+
+    .carousel img {
+      width: 100%;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    #joke {
+      background: #f1f2f6;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+      font-style: italic;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <section class="quiz">
+      <h2>Quick Quiz</h2>
+      <div>
+        <p>1. What does HTML stand for?</p>
+        <button onclick="alert('Correct!')">HyperText Markup Language</button>
+        <button onclick="alert('Try Again!')">Home Tool Markup Language</button>
+      </div>
+      <div>
+        <p>2. What does CSS stand for?</p>
+        <button onclick="alert('Correct!')">Cascading Style Sheets</button>
+        <button onclick="alert('Try Again!')">Creative Style Scripts</button>
+      </div>
+      <div>
+        <p>3. Inside which HTML element do we put the JavaScript?</p>
+        <button onclick="alert('Correct!')">&lt;script&gt;</button>
+        <button onclick="alert('Try Again!')">&lt;js&gt;</button>
+      </div>
+      <div>
+        <p>4. Which property is used to change the background color in CSS?</p>
+        <button onclick="alert('Correct!')">background-color</button>
+        <button onclick="alert('Try Again!')">color-background</button>
+      </div>
+      <div>
+        <p>5. How do you call a function in JavaScript?</p>
+        <button onclick="alert('Correct!')">functionName()</button>
+        <button onclick="alert('Try Again!')">call functionName</button>
+      </div>
+      <div>
+        <p>6. What symbol is used for comments in JavaScript?</p>
+        <button onclick="alert('Correct!')">// comment</button>
+        <button onclick="alert('Try Again!')"># comment</button>
+      </div>
+    </section>
+
+    <section class="carousel">
+      <h2>Image Gallery</h2>
+      <img id="carouselImage" src="https://placekitten.com/600/300" alt="Cute Image" />
+      <br />
+      <button onclick="nextImage()">Next Image</button>
+    </section>
+
+    <section class="api-section">
+      <h2>Need a Laugh?</h2>
+      <button onclick="fetchJoke()">Get a Random Joke</button>
+      <p id="joke"></p>
+    </section>
+
+  </div>
+
+  <script>
+    // Image Carousel JavaScript
+    const images = [
+      'https://placekitten.com/600/300',
+      'https://placebear.com/600/300',
+      'https://placebeard.it/600x300'
+    ];
+    let currentImage = 0;
+
+    function nextImage() {
+      currentImage = (currentImage + 1) % images.length;
+      document.getElementById('carouselImage').src = images[currentImage];
+    }
+
+    // Fetch Joke from API
+    async function fetchJoke() {
+      try {
+        const response = await fetch('https://official-joke-api.appspot.com/random_joke');
+        const data = await response.json();
+        document.getElementById('joke').innerText = `${data.setup} - ${data.punchline}`;
+      } catch (error) {
+        document.getElementById('joke').innerText = 'Oops! Could not load a joke right now.';
+      }
+    }
+  </script>
+</body>
+
+</html>
